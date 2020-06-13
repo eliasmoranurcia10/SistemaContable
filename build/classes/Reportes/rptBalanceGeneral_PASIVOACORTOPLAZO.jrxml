@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptBalanceGeneral_PASIVOACORTOPLAZO" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="98c9325c-e1e7-4b5e-a4d2-f716126f5b05">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT cod_cta,nombre_cta,
+		if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) <= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),concat('(',abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),')')) as Haber
+from cuenta
+where cod_cta between 40 and 44;]]>
+	</queryString>
+	<field name="cod_cta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_cta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Haber" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="19" width="52" height="20" forecolor="#660066" uuid="ef54f5e1-2f2c-4b34-a5e6-cade89ea28ec"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CÓDIGO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="473" height="20" forecolor="#006600" uuid="1c109f74-2ec9-4466-8030-2b30367db1c5"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PASIVO A CORTO PLAZO]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="64" y="19" width="298" height="20" forecolor="#660066" uuid="2a359552-943f-46e1-81ac-717cccbe5ffa"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE LA CUENTA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="373" y="19" width="100" height="20" forecolor="#660066" uuid="b3032f3a-fb71-44dd-8726-916822f86230"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MONTO]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="21" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="52" height="20" uuid="05f31be3-13a5-484e-bf7f-f76e6d5e49c7"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="64" y="0" width="298" height="20" uuid="da909628-7b20-4b94-9e15-e05b7c4545ec"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="373" y="0" width="100" height="20" uuid="bf197847-1008-4677-9f4b-3034458362c8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

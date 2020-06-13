@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptEstadoVariacionCapitalContable_TotalesAumentos" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="d2db119a-b4c7-4267-8a9f-b503f8954c67">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[SELECT 
+		(SELECT if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) as Haber from cuenta where cod_cta = 50 ) as TotalAumentoCapitalSocial,(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))  ) + (SELECT if( sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))) <> 0 , sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))) - (select sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ) from cuenta where cod_cta in (60,61,62,63,64,65,66,67,68,69) ),'' ) from cuenta where cod_cta between 70 and 79 ) ) as TotalAumentoUtilidadesRetenidas,
+        ((SELECT if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) as Haber from cuenta where cod_cta = 50 ) + (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))  ) + (SELECT if( sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))) <> 0 , sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))) - (select sum(if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ) from cuenta where cod_cta in (60,61,62,63,64,65,66,67,68,69) ),'' ) from cuenta where cod_cta between 70 and 79 ) ) )as TotalAumentos
+
+from cuenta
+where cod_cta between 51 and 59 ;]]>
+	</queryString>
+	<field name="TotalAumentoCapitalSocial" class="java.lang.Long"/>
+	<field name="TotalAumentoUtilidadesRetenidas" class="java.lang.Long"/>
+	<field name="TotalAumentos" class="java.lang.Long"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="23" splitType="Stretch">
+			<textField>
+				<reportElement x="151" y="1" width="100" height="20" uuid="0b74e1e4-b381-44c0-84e6-1a1e1b4dd366"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalAumentoCapitalSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="1" width="144" height="20" uuid="e647fcc5-d05f-4e94-bb3e-25a3d5ccbeb9"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalAumentoUtilidadesRetenidas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="1" width="124" height="20" uuid="2e2f6c68-0368-4892-bdea-08f9b72e6dbc"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalAumentos}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="1" width="137" height="20" forecolor="#006600" uuid="2ab1c132-45b1-470f-bd43-5036ae7367b9"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE AUMENTOS]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="0" width="555" height="1" forecolor="#006600" uuid="388e1243-77b4-4b14-be74-0ecd9705cb29"/>
+			</line>
+		</band>
+	</detail>
+</jasperReport>

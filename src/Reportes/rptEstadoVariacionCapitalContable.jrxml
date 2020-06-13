@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="9d12eef9-8fc1-455d-8a6e-c88176568803">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="329"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select (select if(SaldoInicHABER >= SaldoInicDEBE ,SaldoInicHABER,concat('(',SaldoInicDEBE,')') ) from cuenta where cod_cta =50 ) as CapitalSocial, 
+       (select if(sum(SaldoInicHABER) >= sum(SaldoInicDEBE),sum(SaldoInicHABER) - sum(SaldoInicDEBE),concat('(',sum(SaldoInicDEBE) - sum(SaldoInicHABER),')')    ) from cuenta where cod_cta between 51 and 59) as UtilidadesRetenidas,
+       (select if(sum(SaldoInicHABER) >= sum(SaldoInicDEBE),sum(SaldoInicHABER) - sum(SaldoInicDEBE),concat('(',sum(SaldoInicDEBE) - sum(SaldoInicHABER),')')    ) from cuenta where cod_cta between 50 and 59) as TotalCapitaldeSaldoInicial;]]>
+	</queryString>
+	<field name="CapitalSocial" class="java.lang.String"/>
+	<field name="UtilidadesRetenidas" class="java.lang.String"/>
+	<field name="TotalCapitaldeSaldoInicial" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="92" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="93" height="92" uuid="b70ffa32-f511-4fa8-8e06-b7c7bdf65d2b"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Azucarera.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="462" y="0" width="93" height="92" uuid="eb74a614-2fd8-4f96-9361-d840d17f3036"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\EsradodeVariaciondeCC.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="93" y="31" width="369" height="22" forecolor="#006600" uuid="97ccd748-7c82-496f-ad85-289224e22f03"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="53" width="369" height="19" forecolor="#660066" uuid="cb4e01c2-b836-4f24-a69b-aed3e8069fa7"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO DE VARIACIÓN DE CAPITAL CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="93" y="72" width="147" height="20" forecolor="#006600" uuid="1f569bbe-bf3e-4848-ae7d-2769f06da4f8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="257" y="72" width="205" height="20" forecolor="#006600" uuid="39e477f1-ae3f-4f2a-818e-d66e3b2aa597"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="93" y="0" width="369" height="20" uuid="ddc6f2a3-781a-4f15-a289-28656cb04c40"/>
+				<textElement>
+					<font fontName="Times New Roman" size="13" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="90" width="555" height="2" forecolor="#330033" uuid="69403e87-239b-4a2f-ad3a-0dbeee3dff1b"/>
+			</line>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="157" y="16" width="100" height="20" uuid="216e9e97-1745-4229-89be-9ed2d626e317"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[CAPITAL SOCIAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="269" y="16" width="144" height="20" uuid="fb995e97-ee2d-4c49-9dee-adf6e5906684"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[UTILIDADES RETENIDAS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="431" y="16" width="124" height="20" uuid="84908044-4c2e-4730-bde0-c40ad27cadfe"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE CAPITAL CONTABLE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="16" width="120" height="20" forecolor="#660066" uuid="6b4ffe03-ee20-4f27-b0b7-ea51fafcf438"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NRO CUENTA]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="61" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="59" uuid="a843c1b4-bb78-407f-981f-9e9a43b2f460"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_SaldoInicial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="58">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" forecolor="#006600" uuid="e94b7dc8-c247-4cc9-b3aa-ae203486f6d6"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[AUMENTOS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="20" width="555" height="36" uuid="9eb3d3cd-3795-4309-8b1f-cd6a67fe9262"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_AumnetoCapitalSocial.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="40">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="39" uuid="f89a5450-5acd-4ebf-9715-d14969dbb8b5"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_AumentoutilidadesRetenidas.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="41">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="39" uuid="8819e711-b38f-49a9-a7d8-9f9d38b5c918"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_UTILIDADDELEJERCICIO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="43">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="42" uuid="0031fd33-422f-4dcf-b031-299c4abbaac6"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_TotalesAumentos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="92">
+			<subreport>
+				<reportElement x="0" y="53" width="555" height="39" uuid="4718d600-4ac9-42e0-8d9b-d1c277390c08"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_DisminucionCapitalSocial.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="33" width="120" height="20" forecolor="#006600" uuid="0ca1837f-a9f1-458a-8db3-6fd73d7d65a4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DISMINUCIONES]]></text>
+			</staticText>
+		</band>
+		<band height="40">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="38" uuid="ea65a860-01fe-4139-8e57-075ab059d7c6"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_DisminucionUtilidades.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="42">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="42" uuid="9bc40a94-4a30-476f-acf5-9a5e04bf91a1"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_DisminucionUtlidadesEjercicio.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="41">
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="39" uuid="deb6d3bb-242b-4189-a686-b8365288e31b"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_TotalesDisminucion.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="74">
+			<line>
+				<reportElement x="-12" y="15" width="579" height="1" uuid="12919d60-341c-4abe-ba0a-ad37411f017f"/>
+				<graphicElement>
+					<pen lineWidth="3.0" lineStyle="Double" lineColor="#660066"/>
+				</graphicElement>
+			</line>
+			<subreport>
+				<reportElement x="0" y="26" width="555" height="48" uuid="9861bb38-a6ac-46fa-a8ba-2892a08c0437"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptEstadoVariacionCapitalContable_TotalesVCC.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="57" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="215" y="17" width="80" height="20" forecolor="#006600" uuid="62e70e8f-33b0-420c-8e7d-290bb46663c7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="295" y="17" width="40" height="20" forecolor="#006600" uuid="4e72ec57-c50f-4889-8c7c-d3e63d038eda"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

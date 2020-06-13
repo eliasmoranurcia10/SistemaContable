@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptBalanceGeneral_UTILIDADNETA" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="7e86988b-7527-4e8b-bf70-063448399b61">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT 
+		if((sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))))) >= 
+        (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0))),
+        (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))))))-
+        (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0))), concat('',
+        (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0)))-
+        (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))))),''))
+        as UtilidadNeta
+from cuenta
+where cod_cta between 60 and 79 ;]]>
+	</queryString>
+	<field name="UtilidadNeta" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="373" y="0" width="100" height="20" uuid="7da61c3b-e1aa-4ddd-9d91-4ff855e6353b"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UtilidadNeta}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="362" height="20" uuid="f00400e9-228d-402f-bc29-13ea55052c03"/>
+				<textElement>
+					<font fontName="Times New Roman" size="11"/>
+				</textElement>
+				<text><![CDATA[UTILIDAD NETA DEL EJERCICIO]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="504fd72b-8149-4259-b761-5c64912125c8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<parameter name="totaldebe" class="java.lang.String"/>
+	<parameter name="totalhaber" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT cod_cta,nombre_cta,
+		if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) as Debe,
+		if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) as Haber
+from cuenta;]]>
+	</queryString>
+	<field name="cod_cta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_cta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Debe" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Haber" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<variable name="Debe_1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Debe}]]></variableExpression>
+	</variable>
+	<variable name="Haber_1" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Haber}]]></variableExpression>
+	</variable>
+	<variable name="Debe_2" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Debe}]]></variableExpression>
+	</variable>
+	<variable name="Haber_2" class="java.lang.Long" resetType="Column" calculation="Sum">
+		<variableExpression><![CDATA[$F{Haber}]]></variableExpression>
+	</variable>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="110" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="108" height="109" uuid="a4555f31-5976-4107-8fbe-a3587070f077"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Azucarera.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="436" y="0" width="119" height="109" uuid="1ab9c64f-c004-4d3f-9637-0540c2ba4ec5"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\balanzadecomprobacion.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="108" y="13" width="328" height="30" forecolor="#006600" uuid="d0d84ae7-5fba-454a-8c17-be0fcc8c7764"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="43" width="328" height="30" forecolor="#660066" uuid="733c9327-f130-4f08-8f08-40965e5272e3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[BALANZA DE COMPROBACIÓN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="108" y="73" width="100" height="20" uuid="91bbd7b6-bb27-4df7-a8ba-b4a69e3362e5"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="218" y="73" width="218" height="20" uuid="64549b1e-50e4-446d-8df5-e49df5fe6bfa"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="109" width="555" height="1" forecolor="#339900" uuid="577928eb-b7a1-4426-a854-282189d9ff31"/>
+			</line>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="26" splitType="Stretch">
+			<line>
+				<reportElement x="2" y="25" width="553" height="1" forecolor="#006600" uuid="384a97d7-8f67-4db2-a1d0-fc6a5f03b699"/>
+			</line>
+			<staticText>
+				<reportElement x="0" y="0" width="133" height="20" uuid="50e5acaa-0fa0-466d-97f8-a043cc8de80a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[ADMINISTRADOR  : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="146" y="0" width="409" height="20" uuid="44696529-db76-4571-b27f-58e94c900d07"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="26" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="6" width="59" height="20" forecolor="#006600" uuid="c91bc6fb-03e3-4773-90cf-f81aa7700750"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="59" y="6" width="284" height="20" forecolor="#006600" uuid="a395c8a8-248c-4f92-8ea3-aa9150962034"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre de la Cuenta]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="343" y="6" width="93" height="20" forecolor="#006600" uuid="54f5298d-06de-4a34-ac07-9a7641e31754"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo Final Debe]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="453" y="6" width="102" height="20" forecolor="#006600" uuid="c25f3d10-a7c7-4f4d-88c2-d97d8a94ac3b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Saldo Final Haber]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="14" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="59" height="13" uuid="944abe29-081c-46a7-a7a6-e8fa63597e1c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="284" height="13" uuid="60d5a0cc-761c-49ba-9666-5e849e9f46d2"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="0" width="93" height="13" uuid="1c5bfded-a29f-4899-9235-ffa0cc883fbc"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Debe}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="0" width="102" height="13" uuid="ba9e245a-3596-41a1-b70a-a145e69b81b0"/>
+				<textElement textAlignment="Right">
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Haber}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="20" splitType="Stretch"/>
+	</columnFooter>
+	<summary>
+		<band height="42" splitType="Stretch">
+			<line>
+				<reportElement x="336" y="9" width="100" height="1" forecolor="#330033" uuid="32b54bc0-d4d2-4d36-9238-791fb01280af"/>
+			</line>
+			<line>
+				<reportElement x="455" y="8" width="100" height="1" forecolor="#330033" uuid="f9d212e2-1108-4b8e-8ba3-ec515a8c1a27"/>
+			</line>
+			<textField>
+				<reportElement x="453" y="10" width="102" height="20" forecolor="#330033" uuid="d51ebdf3-a554-45b5-8d95-a751871abea4"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totalhaber}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="343" y="10" width="93" height="20" forecolor="#330033" uuid="15d5a469-7db7-4b44-bf1b-df25e36d03cb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{totaldebe}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="321" height="20" forecolor="#330033" uuid="0b3d9bfc-e996-4148-9601-95a36226a3a3"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL DE SALDOS FINALES DEBE Y HABER]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

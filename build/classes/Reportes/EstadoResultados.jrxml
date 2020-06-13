@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="a93eaa18-7770-4411-8c58-57f065dd0a87">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="18"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT cod_cta,nombre_cta,
+		if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) as Debe,
+		if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) as Haber
+from cuenta
+where cod_cta between 70 and 79;]]>
+	</queryString>
+	<field name="cod_cta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_cta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Debe" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="Haber" class="java.lang.Long">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="98" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="94" height="93" uuid="9ee39e12-0d80-4d01-b0c4-5a3094b8b253"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Azucarera.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="461" y="0" width="94" height="93" uuid="e29048d8-9b75-41b1-bf24-ad37388a26c4"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\EstadodeResultados.png"]]></imageExpression>
+			</image>
+			<textField>
+				<reportElement x="94" y="0" width="367" height="20" uuid="6aa4c36f-8649-4e9a-8997-5997ea5441d9"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="20" width="367" height="20" forecolor="#006600" uuid="c338cec7-a0f4-46a0-8501-fc7b13e941d4"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="40" width="367" height="33" forecolor="#330033" uuid="edf70176-38e0-4795-b3dd-ecd1b5fd3101"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[ESTADO DE RESULTADOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="73" width="122" height="20" forecolor="#006600" uuid="a9358a8b-7ce6-4f0a-bf80-d7a1f44373f2"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="230" y="73" width="231" height="20" forecolor="#006600" uuid="f8a39027-f5d7-4da8-a1ab-74d30d41eb0a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="93" width="565" height="2" forecolor="#006600" uuid="54fa1483-1ff5-4ae7-b8e5-d0d3c6e5eebe"/>
+			</line>
+		</band>
+	</title>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="15" width="100" height="20" forecolor="#006600" uuid="b0cf7a4a-d29d-4005-908d-2c9f2a388b43"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[INGRESOS]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="30" y="35" width="525" height="49" uuid="3f50c1e4-86d9-4307-b1b9-6313649dcb2c"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\EstadoResultados_subreport1.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="110">
+			<subreport>
+				<reportElement x="30" y="20" width="525" height="84" uuid="1b2b7faf-45a6-4b8a-a004-75181bb6d6e9"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\EstadoResultados_gastos.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" forecolor="#006600" uuid="4c419a94-a765-41d1-881f-acd283672359"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[GASTOS]]></text>
+			</staticText>
+		</band>
+		<band height="60">
+			<subreport>
+				<reportElement x="30" y="0" width="525" height="46" uuid="8e11a1ec-7772-482c-8834-aff632f4bd13"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\EstadoResultados_UtilidadAntesdeImpuestos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="30" y="0" width="525" height="38" uuid="707beab3-85be-4d48-8940-2bbe742996e5"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\EstadoResultados_TRIBUTOS.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="59">
+			<subreport>
+				<reportElement x="30" y="0" width="525" height="51" uuid="3d0b00de-f21c-4391-bfd1-6d1fe64f9c95"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\EstadoResultados_UTILIDADNETA.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="39">
+			<textField>
+				<reportElement x="216" y="14" width="80" height="20" uuid="caafa13a-d6f7-4667-af32-e22e3199c615"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="296" y="14" width="40" height="20" uuid="15d3b158-dde2-4526-bc8f-79b06831746f"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

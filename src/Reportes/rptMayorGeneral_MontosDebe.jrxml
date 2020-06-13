@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptMayorGeneral_MontosDebe" language="groovy" pageWidth="144" pageHeight="802" columnWidth="144" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="af634151-3906-4a0f-bc6a-c9e85e6db98b">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigod" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select monto as DEBE from detalle_transaccion where naturaleza_cod_naturaleza = 'D' and cuenta_cod_cuenta = $P{codigod};]]>
+	</queryString>
+	<field name="DEBE" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="144" height="20" uuid="a5ab1c47-7521-44dd-9583-50403cbb0dc3"/>
+				<textElement textAlignment="Right">
+					<font size="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEBE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

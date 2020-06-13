@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfdaa1b5-d708-46d3-b883-16fa5ba502d8">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="9"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select cod_cta as codigop,nombre_cta,SaldoInicDEBE,SaldoInicHABER from cuenta]]>
+	</queryString>
+	<field name="codigop" class="java.lang.Integer"/>
+	<field name="nombre_cta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SaldoInicDEBE" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="SaldoInicHABER" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="111" splitType="Stretch">
+			<image>
+				<reportElement x="443" y="0" width="112" height="108" uuid="75525c99-ae82-4212-b7c9-1c3fc919c169"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\libro mayor2.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="112" y="76" width="114" height="20" uuid="19bcaa87-f4b1-4d22-9c8f-8af30ed10ecf"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADMINISTRADOR : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="11" width="331" height="28" forecolor="#006600" uuid="83cc6085-00c4-4383-9db8-5fc1e18de359"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="112" y="39" width="331" height="26" forecolor="#660066" uuid="f16317de-0c77-4344-9b3d-af52968ced37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="18" isBold="true"/>
+				</textElement>
+				<text><![CDATA[LIBRO MAYOR]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="108" width="555" height="1" forecolor="#330033" uuid="3ceee461-4bc0-454d-be9c-836e62cf622c"/>
+			</line>
+			<textField>
+				<reportElement x="226" y="76" width="217" height="20" uuid="b9749765-0e88-4e76-b81e-32bcb0bebbf8"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+			<image>
+				<reportElement x="0" y="0" width="112" height="108" uuid="5d5a9629-7ace-4d3b-acbd-2ae429377381"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Azucarera.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="35" splitType="Stretch"/>
+	</pageHeader>
+	<detail>
+		<band height="183" splitType="Stretch">
+			<subreport>
+				<reportElement x="79" y="75" width="133" height="100" uuid="62811154-418e-4151-a475-187c6a3d761f"/>
+				<subreportParameter name="codigod">
+					<subreportParameterExpression><![CDATA[$F{codigop}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptMayorGeneral_MontosDebe.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="290" y="75" width="140" height="100" uuid="0a606fc5-8b23-472e-9180-fb7f31158633"/>
+				<subreportParameter name="codigoe">
+					<subreportParameterExpression><![CDATA[$F{codigop}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptMayorGeneral_MontosHaber.jasper"]]></subreportExpression>
+			</subreport>
+			<textField>
+				<reportElement x="0" y="1" width="79" height="20" uuid="6d2c5b5f-f578-4d5a-b620-07ade580df1b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigop}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="0" width="476" height="20" uuid="0ef81cbb-0673-4974-bed0-95ef9bd5f581"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="79" y="55" width="133" height="20" uuid="5f0f4aa3-72ad-4753-b033-f4a68798e63a"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SaldoInicDEBE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="290" y="55" width="140" height="20" uuid="050b644b-b74c-42d3-bccf-e8d01ca5262d"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{SaldoInicHABER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="79" y="20" width="133" height="20" uuid="e9aacee4-6eac-495d-bd7c-20c2c5df114b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[DEBE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="290" y="20" width="140" height="20" uuid="a0a089fe-9730-47e8-af4f-cf7cf913ba6a"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[HABER]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="20" width="555" height="1" uuid="348984bf-a552-4925-84d9-ee9a693ef0f5"/>
+			</line>
+			<line>
+				<reportElement x="0" y="40" width="555" height="1" uuid="7a1dba20-99fb-4bed-908a-3c8821ff4314"/>
+			</line>
+			<line>
+				<reportElement x="266" y="21" width="1" height="162" uuid="5b8575bf-0164-44b9-8fae-f58d5ee2f5ec"/>
+			</line>
+			<line>
+				<reportElement x="0" y="1" width="555" height="1" uuid="cb779254-bccc-4efb-80ed-23c5f7dd5d41"/>
+			</line>
+		</band>
+		<band height="75">
+			<line>
+				<reportElement x="79" y="0" width="351" height="1" uuid="6aa6b4ce-226f-4ae7-b801-50c1895ebcfe"/>
+			</line>
+			<subreport>
+				<reportElement x="0" y="0" width="555" height="36" uuid="fdac2519-5655-4cf1-8c1b-a531e9164bab"/>
+				<subreportParameter name="codigof">
+					<subreportParameterExpression><![CDATA[$F{codigop}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptMayorGeneral_SUMAMONTOSDEBEHABER.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="212" y="34" width="80" height="20" uuid="47cbc375-e628-46f0-9866-650ccc96a156"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="292" y="34" width="40" height="20" uuid="0ef94e73-84cc-4637-8432-92f50a00df9f"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

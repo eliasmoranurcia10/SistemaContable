@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="595" pageHeight="842" columnWidth="535" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="37ee5e8c-4c69-44f6-af09-d3fafb2ec4dc">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="inicioperiodo" class="java.lang.String"/>
+	<parameter name="finperiodo" class="java.lang.String"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select id_transaccion, fecha, subcuenta_cod_subcta, nombre_subcta,if(naturaleza_cod_naturaleza = 'D',monto,'') as DEBE,if(naturaleza_cod_naturaleza = 'H',monto,'') as HABER, descripcion
+from transaccion, detalle_transaccion, subcuenta, empresa
+where transaccion.id_transaccion = detalle_transaccion.id_transaccion_pk and 
+      detalle_transaccion.subcuenta_cod_subcta = subcuenta.cod_subcta and 
+      (transaccion.fecha between (select InicioPeriodo from empresa ) and (select finPeriodo from empresa)) order by id_transaccion;]]>
+	</queryString>
+	<field name="id_transaccion" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="fecha" class="java.sql.Date">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="subcuenta_cod_subcta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_subcta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="DEBE" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="HABER" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="descripcion" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="transacciones">
+		<groupExpression><![CDATA[$F{id_transaccion}]]></groupExpression>
+		<groupHeader>
+			<band height="50">
+				<line>
+					<reportElement x="0" y="0" width="555" height="1" forecolor="#330033" uuid="11a64d49-dc81-4455-a1ac-6d5dc21535b0"/>
+				</line>
+				<textField>
+					<reportElement x="21" y="19" width="174" height="20" uuid="341cf3da-3b66-4f4c-9377-6cf39d3a34b8"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["TRANSACCIÓN N° "+ $F{id_transaccion}]]></textFieldExpression>
+				</textField>
+				<textField pattern="YYYY-MM-dd">
+					<reportElement x="195" y="19" width="200" height="20" uuid="cf81ba55-4a0a-4101-b5a4-e61d36e09e16"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["FECHA : "+$F{fecha}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="395" y="19" width="83" height="20" uuid="3d82ee10-3ce3-424b-b046-aaa0dda9f964"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<text><![CDATA[DEBE]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="478" y="19" width="77" height="20" uuid="da2580ad-8a7e-411e-afe5-c59af1dd934c"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times New Roman" isBold="true"/>
+					</textElement>
+					<text><![CDATA[HABER]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="50">
+				<textField>
+					<reportElement x="21" y="17" width="534" height="20" uuid="4d36dec0-33da-4fda-a69a-34ce6a33190d"/>
+					<textElement>
+						<font fontName="Times New Roman" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression><![CDATA["DESCRIPCIÓN :  "+$F{descripcion}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="159" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="106" height="103" uuid="e495277b-6f9e-4a67-8613-9682e8bb81d5"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\imagen2.jpg"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="449" y="0" width="106" height="103" uuid="28f9dde5-fb39-44c0-af8b-9e88c8361914"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Libro diario.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="106" y="12" width="343" height="21" forecolor="#006600" uuid="89ab230a-e0a0-4265-a154-7a3d6d70773b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="106" y="43" width="343" height="20" forecolor="#660066" uuid="a54a1cde-cb20-4954-8f68-d479fd43cb9b"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DIARIO GENERAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="132" y="73" width="26" height="20" forecolor="#006600" uuid="f578c692-aea1-4e16-83f8-0556b1facbd3"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Del ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="175" y="73" width="100" height="20" forecolor="#006600" uuid="0e1d2a6d-aae9-4190-b31c-25a886769a37"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{inicioperiodo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="292" y="73" width="24" height="20" forecolor="#006600" uuid="86a16644-630d-4b4e-957a-291636d89531"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="333" y="73" width="100" height="20" forecolor="#006600" uuid="0a8b80a2-7aed-43b0-8f74-9ab5ffa30733"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{finperiodo}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="0" y="103" width="555" height="1" forecolor="#330033" uuid="4db546f3-8d9d-45c9-9d97-7f1e93ad7584"/>
+			</line>
+			<staticText>
+				<reportElement x="32" y="122" width="126" height="20" uuid="0a43e277-8563-4303-a45b-495089b8e369"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ADMINISTRADOR  : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="175" y="122" width="380" height="20" uuid="3759cce1-cce3-40c8-87ea-6406ce4d7a4d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<textField>
+				<reportElement x="32" y="13" width="43" height="20" uuid="00a7b933-864f-4888-ade2-750e3da6c1a2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{subcuenta_cod_subcta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="13" width="320" height="20" uuid="90dd7de3-ba0d-4fdb-8844-d674e6478653"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_subcta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="395" y="13" width="83" height="20" uuid="6e1642aa-0a7f-4d02-a4e3-458385439522"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{DEBE}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="478" y="13" width="77" height="20" uuid="ed08f083-421b-408f-80ad-d9985df29111"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{HABER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<textField>
+				<reportElement x="212" y="19" width="80" height="20" uuid="ac5bd77f-f5dc-48da-ab7c-bd55422c02b7"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Page "+$V{PAGE_NUMBER}+" of"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="292" y="19" width="40" height="20" uuid="9d45a128-8eab-4f5c-865d-383751bd1c3e"/>
+				<textElement>
+					<font fontName="Times New Roman" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

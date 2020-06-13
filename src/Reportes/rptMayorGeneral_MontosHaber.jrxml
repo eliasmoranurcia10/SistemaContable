@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptMayorGeneral_MontosHaber" language="groovy" pageWidth="144" pageHeight="802" columnWidth="144" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="9047f945-6c53-40a6-b0c6-da612309cb87">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="codigoe" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select monto as HABER from detalle_transaccion where naturaleza_cod_naturaleza = 'H' and cuenta_cod_cuenta = $P{codigoe};]]>
+	</queryString>
+	<field name="HABER" class="java.lang.Integer"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="144" height="20" uuid="53f889b8-3afc-449b-bd6d-fa1b6a8607ed"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{HABER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

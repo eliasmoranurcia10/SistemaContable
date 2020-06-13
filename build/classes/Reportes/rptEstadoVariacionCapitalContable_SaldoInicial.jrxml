@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptEstadoVariacionCapitalContable_SaldoInicial" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="e5b3f56a-81bb-427e-b709-c00e0ea9a5e7">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString>
+		<![CDATA[select (select if(SaldoInicHABER >= SaldoInicDEBE ,SaldoInicHABER,concat('(',SaldoInicDEBE,')') ) from cuenta where cod_cta =50 ) as CapitalSocial, 
+       (select if(sum(SaldoInicHABER) >= sum(SaldoInicDEBE),sum(SaldoInicHABER) - sum(SaldoInicDEBE),concat('(',sum(SaldoInicDEBE) - sum(SaldoInicHABER),')')    ) from cuenta where cod_cta between 51 and 59) as UtilidadesRetenidas,
+       (select if(sum(SaldoInicHABER) >= sum(SaldoInicDEBE),sum(SaldoInicHABER) - sum(SaldoInicDEBE),concat('(',sum(SaldoInicDEBE) - sum(SaldoInicHABER),')')    ) from cuenta where cod_cta between 50 and 59) as TotalCapitaldeSaldoInicial;
+       ]]>
+	</queryString>
+	<field name="CapitalSocial" class="java.lang.String"/>
+	<field name="UtilidadesRetenidas" class="java.lang.String"/>
+	<field name="TotalCapitaldeSaldoInicial" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="37" splitType="Stretch">
+			<textField>
+				<reportElement x="151" y="10" width="100" height="20" uuid="61605c5b-551f-4062-ac23-025e8b0be509"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CapitalSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="263" y="10" width="144" height="20" uuid="df599879-b87f-42fe-8fd2-66af594a8d1e"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{UtilidadesRetenidas}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="10" width="124" height="20" uuid="69c54575-0b61-48b0-96dc-b30481c3c42f"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TotalCapitaldeSaldoInicial}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="10" width="134" height="20" uuid="9ee8b3eb-72d9-416d-8b21-5a5a373cb45d"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="false"/>
+				</textElement>
+				<text><![CDATA[SALDO INICIAL]]></text>
+			</staticText>
+		</band>
+	</detail>
+</jasperReport>

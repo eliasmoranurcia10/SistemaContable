@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptBalanceGeneral" language="groovy" pageWidth="1188" pageHeight="612" orientation="Landscape" columnWidth="1148" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="67904e6b-96de-4ca9-8cce-2a6c47bdcc4c">
+	<property name="ireport.zoom" value="0.75"/>
+	<property name="ireport.x" value="247"/>
+	<property name="ireport.y" value="51"/>
+	<parameter name="admin" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+		(SELECT (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ) )-(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) ) )  from cuenta where cod_cta between 10 and 29) as TOTALACTIVOCIRCULANTE,
+        (SELECT (sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ) )-(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) ) )  from cuenta where cod_cta between 30 and 39) as TOTALACTIVONOCIRCULANTE,
+        (SELECT 	(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) )) -(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) )) from cuenta where cod_cta between 40 and 44) as TOTALPASIVOACORTOPLAZO ,
+        (SELECT 	(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) )) -(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ))  from cuenta where cod_cta between 45 and 49) as TOTALPASIVOALARGOPLAZO,
+        (SELECT 	(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) > (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')),0,abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H')))) )) -(sum( if((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' ) >= (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),abs((SaldoInicDEBE + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'D' )) - (SaldoInicHABER + (select fn_Nulo(sum(monto)) from detalle_transaccion where cuenta_cod_cuenta = cod_cta and naturaleza_cod_naturaleza = 'H'))),0) ))  from cuenta where cod_cta between 50 and 79) as TOTALCAPITALCONTABLE;
+]]>
+	</queryString>
+	<field name="TOTALACTIVOCIRCULANTE" class="java.math.BigDecimal"/>
+	<field name="TOTALACTIVONOCIRCULANTE" class="java.math.BigDecimal"/>
+	<field name="TOTALPASIVOACORTOPLAZO" class="java.math.BigDecimal"/>
+	<field name="TOTALPASIVOALARGOPLAZO" class="java.math.BigDecimal"/>
+	<field name="TOTALCAPITALCONTABLE" class="java.math.BigDecimal"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="100" splitType="Stretch">
+			<image>
+				<reportElement x="0" y="0" width="94" height="94" uuid="836488b0-fa71-4129-bad4-a9768eedda22"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\Azucarera.png"]]></imageExpression>
+			</image>
+			<image>
+				<reportElement x="658" y="0" width="94" height="94" uuid="5ce87125-7538-4c48-a9a2-4e380b046402"/>
+				<imageExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\imagenes\\BalanceGeneral.png"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="94" y="28" width="564" height="24" forecolor="#006600" uuid="764e5ea8-9fd2-43c3-af85-871b5b0a5ad5"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CENTRAL AZUCARERA CHUCARAPI PAMPA BLANCA S.A.]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="94" y="0" width="564" height="20" forecolor="#330033" uuid="ce89bb97-903b-4530-baf7-1fce13ff5c5b"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{admin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="52" width="564" height="20" forecolor="#330033" uuid="31a4b452-7084-4cac-a741-1a20660d1c40"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ESTADO DE SITUACIÓN FINANCIERA O BALANCE GENERAL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="94" y="74" width="241" height="20" uuid="15d95d28-347a-4c44-abbd-67173c18baae"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<text><![CDATA[al]]></text>
+			</staticText>
+			<textField pattern="EEEEE dd MMMMM yyyy">
+				<reportElement x="353" y="74" width="305" height="20" uuid="5997b0d1-84e4-46a8-a145-d87dfbf44e2f"/>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="23" splitType="Stretch"/>
+	</columnHeader>
+	<detail>
+		<band height="107" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="20" uuid="00df4468-e792-4581-bf35-22022a45ca82"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ACTIVO]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="0" y="31" width="575" height="76" uuid="9bf928fe-36ad-420a-bf96-fd996b23366e"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_ACTIVOCIRCULANTE.jasper"]]></subreportExpression>
+			</subreport>
+			<staticText>
+				<reportElement x="599" y="0" width="100" height="20" uuid="818a55a3-ed31-49b5-842f-99f38bfe68a4"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PASIVO]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="599" y="31" width="549" height="76" uuid="02fb7716-ee05-41d0-ba53-11be28783db9"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_PASIVOACORTOPLAZO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="40">
+			<rectangle>
+				<reportElement x="0" y="0" width="575" height="25" uuid="fff5c1a6-59d4-43ec-b3df-5934326be54d"/>
+			</rectangle>
+			<textField>
+				<reportElement x="272" y="0" width="303" height="20" uuid="3cca8703-713b-4190-907c-0f1265354915"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALACTIVOCIRCULANTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="272" height="20" uuid="825560c1-b894-45a1-9fec-6a6af57fdbab"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ACTIVO CIRCULANTE]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="599" y="0" width="549" height="25" uuid="09da5594-4b18-441c-85a3-daa652f383e4"/>
+			</rectangle>
+			<textField>
+				<reportElement x="834" y="0" width="314" height="20" uuid="9f12d2cf-efb3-44f7-be0a-6f8317bc4646"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALPASIVOACORTOPLAZO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="599" y="0" width="235" height="20" uuid="faca0702-e8a5-4d42-9b86-2e6a508eab56"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isBold="false" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PASIVO A CORTO PLAZO]]></text>
+			</staticText>
+		</band>
+		<band height="94">
+			<subreport>
+				<reportElement x="0" y="0" width="575" height="94" uuid="13c9c794-ccbe-460d-94e0-185728c6cb61"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_ACTIVONOCIRCULANTE.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="599" y="0" width="549" height="94" uuid="69a41358-3d07-4905-8959-22a1d31808f0"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_PASIVOALARGOPLAZO.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="38">
+			<rectangle>
+				<reportElement x="0" y="0" width="575" height="25" uuid="03d69c70-06d9-4c45-81ff-6959215b53c8"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="599" y="0" width="549" height="25" uuid="c41da2ce-7fe6-447c-b807-a667cb59fd0c"/>
+			</rectangle>
+			<textField>
+				<reportElement x="272" y="0" width="303" height="20" uuid="0249110e-f67d-4253-b15f-6844522f7c97"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALACTIVONOCIRCULANTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="272" height="20" uuid="611a1dc9-86ca-4aca-8571-ae235b238bfa"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ACTIVO NO CIRCULANTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="834" y="0" width="313" height="20" uuid="8dc40042-b45d-4998-a0a8-ce58783d80bb"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALPASIVOALARGOPLAZO}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="599" y="0" width="235" height="20" uuid="a2e8202e-064f-4900-a692-8f0d4d60cba0"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PASIVO A LARGO PLAZO]]></text>
+			</staticText>
+		</band>
+		<band height="36">
+			<rectangle>
+				<reportElement x="599" y="0" width="549" height="25" uuid="813ee63c-8023-4a48-b1eb-3bf00d5128ec"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="599" y="0" width="235" height="20" uuid="371ca5ad-5ae8-42d6-83f8-c9026d2e6556"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PASIVO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="834" y="0" width="313" height="20" uuid="2d836d7e-161c-4fb6-8a2a-567b56e78f1c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALPASIVOACORTOPLAZO} + $F{TOTALPASIVOALARGOPLAZO}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="60">
+			<subreport>
+				<reportElement x="599" y="0" width="549" height="60" uuid="31e541d4-e972-4179-8178-1af514454944"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_CAPITAL.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<subreport>
+				<reportElement x="599" y="0" width="549" height="50" uuid="35ea5696-8cd4-4f38-be85-ed3a7495d9d3"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA["D:\\Trabajos Uni\\Ciclo VI\\Taller de Implementación y admin de Base de datos\\Conexión bd_oracle11g\\SysContable\\src\\Reportes\\rptBalanceGeneral_UTILIDADNETA.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="50">
+			<rectangle>
+				<reportElement x="599" y="0" width="549" height="25" uuid="575a9d7b-dcb1-4224-a68b-26853d65c854"/>
+			</rectangle>
+			<textField>
+				<reportElement x="834" y="0" width="313" height="20" uuid="0c09b3c8-9c80-4c91-8eed-87d037487db8"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALCAPITALCONTABLE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="599" y="0" width="235" height="20" uuid="f8ceeb5b-2223-463b-8eec-47c2ca38265a"/>
+				<textElement>
+					<font fontName="Times New Roman" size="12" isItalic="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL CAPITAL CONTABLE]]></text>
+			</staticText>
+		</band>
+		<band height="50">
+			<rectangle>
+				<reportElement x="599" y="0" width="549" height="25" uuid="48adbf47-df9a-4634-bbfb-c2c3b108af9e"/>
+			</rectangle>
+			<rectangle>
+				<reportElement x="0" y="0" width="575" height="25" uuid="f459db5a-b770-40f1-9647-0be444243c71"/>
+			</rectangle>
+			<staticText>
+				<reportElement x="0" y="0" width="235" height="20" uuid="1676fbb1-031f-4b5f-817e-41d147070d2e"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL ACTIVO]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="235" y="0" width="340" height="20" uuid="d4e1249d-0789-4dbe-8761-f7950b66f697"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALACTIVOCIRCULANTE} + $F{TOTALACTIVONOCIRCULANTE}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="599" y="0" width="235" height="20" uuid="c9e83b07-c041-4fbb-bead-1a7c822aadd2"/>
+				<textElement>
+					<font fontName="Times New Roman" size="16" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[TOTAL PASIVO Y CAPITAL]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="834" y="0" width="313" height="20" uuid="afe3538d-fce5-4dcd-a209-467f8f8b4eef"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TOTALPASIVOACORTOPLAZO} + $F{TOTALPASIVOALARGOPLAZO} +$F{TOTALCAPITALCONTABLE}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="46" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

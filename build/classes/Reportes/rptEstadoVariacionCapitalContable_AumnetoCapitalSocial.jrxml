@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="rptEstadoVariacionCapitalContable_AumnetoCapitalSocial" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bc7f2e6f-dc3a-42d0-862b-6e6a609e5c41">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[select cod_cta,nombre_cta ,if((select  sum(monto) from detalle_transaccion where cuenta_cod_cuenta = 50 and naturaleza_cod_naturaleza = 'H') >= (select  sum(monto) from detalle_transaccion where cuenta_cod_cuenta = 50 and naturaleza_cod_naturaleza = 'D') ,(select  sum(monto) from detalle_transaccion where cuenta_cod_cuenta = 50 and naturaleza_cod_naturaleza = 'H')-(select  sum(monto) from detalle_transaccion where cuenta_cod_cuenta = 50 and naturaleza_cod_naturaleza = 'D'),'') as AumentoCapitalSocial from cuenta where cod_cta = 50;]]>
+	</queryString>
+	<field name="cod_cta" class="java.lang.Integer">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="nombre_cta" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="AumentoCapitalSocial" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="134" height="20" uuid="df683637-af60-4b3f-b755-d80420031b00"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{cod_cta}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="151" y="0" width="100" height="20" uuid="a6cb5d00-f611-48f9-8dc8-8cc70153988d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AumentoCapitalSocial}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="425" y="0" width="124" height="20" uuid="48be5b11-ce1f-40ac-8d79-a49e4341d52d"/>
+				<textElement textAlignment="Right">
+					<font fontName="Times New Roman" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AumentoCapitalSocial}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>
